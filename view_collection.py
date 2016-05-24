@@ -4,9 +4,9 @@ import time
 import sublime
 
 try:
-    from .vcs_helpers import GitHelper, HgHelper, SvnHelper
+    from .vcs_helpers import GitHelper, HgHelper, SvnHelper, FossilHelper
 except ValueError:
-    from vcs_helpers import GitHelper, HgHelper, SvnHelper
+    from vcs_helpers import GitHelper, HgHelper, SvnHelper, FossilHelper
 
 
 class ViewCollection:
@@ -18,15 +18,16 @@ class ViewCollection:
     @staticmethod
     def add(view):
         try:
-            from .gutter_handlers import GitGutterHandler, HgGutterHandler, SvnGutterHandler
+            from .gutter_handlers import GitGutterHandler, HgGutterHandler, SvnGutterHandler, FossilGutterHandler
         except ValueError:
-            from gutter_handlers import GitGutterHandler, HgGutterHandler, SvnGutterHandler
+            from gutter_handlers import GitGutterHandler, HgGutterHandler, SvnGutterHandler, FossilGutterHandler
 
         settings = sublime.load_settings('VcsGutter.sublime-settings')
         vcs_paths = settings.get('vcs_paths', {
             'git': 'git',
             'hg': 'hg',
-            'svn': 'svn'
+            'svn': 'svn',
+            'fossil': 'fossil'
         })
 
         key = None
@@ -39,6 +40,9 @@ class ViewCollection:
         elif SvnHelper.is_svn_repository(view):
             key = 'svn'
             klass = SvnGutterHandler
+        elif FossilHelper.is_fossil_repository(view):
+            key = 'fossil'
+            klass = FossilGutterHandler
 
         handler = None
         if key is not None:

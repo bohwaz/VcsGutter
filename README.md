@@ -36,7 +36,7 @@ cd %USERPROFILE%\AppData\Roaming\Sublime Text 2\Packages
 git clone git://github.com/bradsokol/VcsGutter.git "VCS Gutter"
 ```
 
-VcsGutter assumes that the `git`, `hg`, `svn` and `diff` commands are availible on the command line. The installers for these tools may not add the directory containing the executables to the PATH environment variable. If not, you must add the appropriate directory to your PATH variable.
+VcsGutter assumes that the `git`, `hg`, `svn`, `fossil` and `diff` commands are availible on the command line. The installers for these tools may not add the directory containing the executables to the PATH environment variable. If not, you must add the appropriate directory to your PATH variable.
 
 For example:
 ```dos
@@ -63,14 +63,15 @@ By default, this is turned off. When the parameter ```shown_in_minimap``` is set
 By default, VcsGutter runs in the same thread which can block if it starts to perform slowly. Usually this isn't a problem but depending on the size of your file or repo it can be. If you set `non_blocking` to `true` then VcsGutter will run in a seperate thread and will not block. This does cause a slight delay between when you make a modification and when the icons update in the gutter. This is a ***Sublime Text 3 only feature***. Sublime Text 2 users can turn off live mode if performance is an issue.
 
 #### Executable Path
-If your VCS executable (git, hg, or svn) or diff utility is not in your PATH, you may need to set the `vcs_paths` setting to the location of your executables:
+If your VCS executable (git, hg, or svn, fossil) or diff utility is not in your PATH, you may need to set the `vcs_paths` setting to the location of your executables:
 ```js
 {
     "vcs_paths": {
         "diff": "diff",
         "git": "git",
         "hg": "/usr/local/bin/hg",
-        "svn": "svn"
+        "svn": "svn",
+        "fossil": "fossil"
     }
 }
 ```
