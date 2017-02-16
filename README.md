@@ -3,7 +3,14 @@
 **Now supporting Sublime Text 3.**
 
 VCS Gutter Modern is a plugin for Sublime Text 2 and 3 that displays an icon in the gutter area indicating whether a line has been inserted, modified or deleted relative to the version of the file in the local source
-code repository. VCS Gutter supports Fossil, Git, Mercurial and Subversion.
+code repository. VCS Gutter supports:
+
+* Fossil
+* Git
+* Mercurial
+* Subversion
+
+Any pull request for a different VCS is more than welcome!
 
 Note: this is a fork of the unmaintained version of VcsGutter from https://github.com/bradsokol/VcsGutter / It adds support for Fossil, and any contribution is welcome.
 
