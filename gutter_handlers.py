@@ -84,6 +84,8 @@ class VcsGutterHandler(object):
             open(self.vcs_temp_file.name, 'w').close()
             args = self.get_diff_args()
             try:
+                # Necessary for Fossil (needs to be in checkout)
+                os.chdir(self.vcs_tree)
                 contents = self.run_command(args)
                 contents = contents.replace(b'\r\n', b'\n')
                 contents = contents.replace(b'\r', b'\n')
@@ -178,7 +180,7 @@ class GitGutterHandler(VcsGutterHandler):
     def get_diff_args(self):
         args = [
             self.exc_path,
-            '--git-dir=' + self.vcs_dir,
+            '--git-dir=' + self.vcs_dir[0],
             '--work-tree=' + self.vcs_tree,
             'show',
             'HEAD:' + self.vcs_path,
@@ -210,5 +212,17 @@ class SvnGutterHandler(VcsGutterHandler):
             self.exc_path,
             'cat',
             os.path.join(self.vcs_tree, self.vcs_path),
+        ]
+        return args
+
+class FossilGutterHandler(VcsGutterHandler):
+    def get_vcs_helper(self):
+        return vcs_helpers.FossilHelper()
+
+    def get_diff_args(self):
+        args = [
+            self.exc_path,
+            'cat',
+            self.vcs_path,
         ]
         return args

@@ -1,12 +1,20 @@
-## VCS Gutter
+## VCS Gutter Modern
 
 **Now supporting Sublime Text 3.**
 
-VCS Gutter is a plugin for Sublime Text 2 and 3 that displays an icon in the gutter area indicating whether a line has been inserted, modified or deleted relative to the version of the file in the local source
-code repository. VCS Gutter supports Git, Mercurial and Subversion.
+VCS Gutter Modern is a plugin for Sublime Text 2 and 3 that displays an icon in the gutter area indicating whether a line has been inserted, modified or deleted relative to the version of the file in the local source
+code repository. VCS Gutter supports:
 
-VCS Gutter is a "friendly fork" that builds on the original work by
-[jisaacks](https://github.com/jisaacks) on [GitGutter](https://github.com/jisaacks/GitGutter).
+* Fossil
+* Git
+* Mercurial
+* Subversion
+
+Any pull request for a different VCS is more than welcome!
+
+Note: this is a fork of the unmaintained version of VcsGutter from https://github.com/bradsokol/VcsGutter / It adds support for Fossil, and any contribution is welcome.
+
+VCS Gutter was originally a "friendly fork" that builds on the original work by [jisaacks](https://github.com/jisaacks) on [GitGutter](https://github.com/jisaacks/GitGutter).
 
 ### Screenshot:
 
@@ -20,23 +28,23 @@ Or you can clone this repo into your *Sublime Text 2/Packages*
 *Mac OS X*
 ```shell
 cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/
-git clone git://github.com/bradsokol/VcsGutter.git "VCS Gutter"
+git clone https://github.com/bohwaz/VcsGutter.git "VCS Gutter"
 ```
 
 *Ubuntu*
 ```shell
 cd ~/.config/sublime-text-2/Packages
-git clone git://github.com/bradsokol/VcsGutter.git "VCS Gutter"
+git clone https://github.com/bohwaz/VcsGutter.git "VCS Gutter"
 ```
 
 *Windows*
 
 ```shell
 cd %USERPROFILE%\AppData\Roaming\Sublime Text 2\Packages
-git clone git://github.com/bradsokol/VcsGutter.git "VCS Gutter"
+git clone https://github.com/bohwaz/VcsGutter.git "VCS Gutter"
 ```
 
-VcsGutter assumes that the `git`, `hg`, `svn` and `diff` commands are availible on the command line. The installers for these tools may not add the directory containing the executables to the PATH environment variable. If not, you must add the appropriate directory to your PATH variable.
+VcsGutter assumes that the `git`, `hg`, `svn`, `fossil` and `diff` commands are availible on the command line. The installers for these tools may not add the directory containing the executables to the PATH environment variable. If not, you must add the appropriate directory to your PATH variable.
 
 For example:
 ```dos
@@ -63,14 +71,15 @@ By default, this is turned off. When the parameter ```shown_in_minimap``` is set
 By default, VcsGutter runs in the same thread which can block if it starts to perform slowly. Usually this isn't a problem but depending on the size of your file or repo it can be. If you set `non_blocking` to `true` then VcsGutter will run in a seperate thread and will not block. This does cause a slight delay between when you make a modification and when the icons update in the gutter. This is a ***Sublime Text 3 only feature***. Sublime Text 2 users can turn off live mode if performance is an issue.
 
 #### Executable Path
-If your VCS executable (git, hg, or svn) or diff utility is not in your PATH, you may need to set the `vcs_paths` setting to the location of your executables:
+If your VCS executable (git, hg, or svn, fossil) or diff utility is not in your PATH, you may need to set the `vcs_paths` setting to the location of your executables:
 ```js
 {
     "vcs_paths": {
         "diff": "diff",
         "git": "git",
         "hg": "/usr/local/bin/hg",
-        "svn": "svn"
+        "svn": "svn",
+        "fossil": "fossil"
     }
 }
 ```

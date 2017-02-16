@@ -10,7 +10,13 @@ class VcsHelper(object):
         directly under the passed directory."""
         if not directory:
             return False
-        return os.path.join(directory, cls.meta_data_directory())
+
+        directory_list = []
+
+        for meta_data_directory in cls.meta_data_directory():
+            directory_list.append(os.path.join(directory, meta_data_directory))
+
+        return directory_list
 
     @classmethod
     def vcs_file_path(cls, view, vcs_path):
@@ -28,16 +34,16 @@ class VcsHelper(object):
     @classmethod
     def vcs_root(cls, directory):
         """Returns the top-level directory of the repository."""
-        if os.path.exists(os.path.join(directory,
-                          cls.meta_data_directory())):
-            return directory
+        for meta_data_directory in cls.meta_data_directory():
+            if (os.path.exists(os.path.join(directory, meta_data_directory))):
+                return directory
+
+        parent = os.path.realpath(os.path.join(directory, os.path.pardir))
+        if parent == directory:
+            # we have reached root dir
+            return False
         else:
-            parent = os.path.realpath(os.path.join(directory, os.path.pardir))
-            if parent == directory:
-                # we have reached root dir
-                return False
-            else:
-                return cls.vcs_root(parent)
+            return cls.vcs_root(parent)
 
     @classmethod
     def vcs_tree(cls, view):
@@ -49,16 +55,25 @@ class VcsHelper(object):
 
     @classmethod
     def is_repository(cls, view):
-        if view is None or view.file_name() is None or not cls.vcs_dir(cls.vcs_tree(view)):
+        if view is None or view.file_name() is None:
             return False
         else:
-            return True
+            vcs_dir_list = cls.vcs_dir(cls.vcs_tree(view))
+
+            if not vcs_dir_list:
+                return False
+
+            for directory in vcs_dir_list:
+                if directory:
+                    return True
+                    
+            return False
 
 
 class GitHelper(VcsHelper):
     @classmethod
     def meta_data_directory(cls):
-        return '.git'
+        return ['.git']
 
     @classmethod
     def is_git_repository(cls, view):
@@ -68,7 +83,7 @@ class GitHelper(VcsHelper):
 class HgHelper(VcsHelper):
     @classmethod
     def meta_data_directory(cls):
-        return '.hg'
+        return ['.hg']
 
     @classmethod
     def is_hg_repository(cls, view):
@@ -78,8 +93,17 @@ class HgHelper(VcsHelper):
 class SvnHelper(VcsHelper):
     @classmethod
     def meta_data_directory(cls):
-        return '.svn'
+        return ['.svn']
 
     @classmethod
     def is_svn_repository(cls, view):
+        return cls.is_repository(view)
+
+class FossilHelper(VcsHelper):
+    @classmethod
+    def meta_data_directory(cls):
+        return ['.fslckout', '_FOSSIL_']
+
+    @classmethod
+    def is_fossil_repository(cls, view):
         return cls.is_repository(view)
