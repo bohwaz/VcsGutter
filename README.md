@@ -1,12 +1,13 @@
-## VCS Gutter
+## VCS Gutter Modern
 
 **Now supporting Sublime Text 3.**
 
-VCS Gutter is a plugin for Sublime Text 2 and 3 that displays an icon in the gutter area indicating whether a line has been inserted, modified or deleted relative to the version of the file in the local source
-code repository. VCS Gutter supports Git, Mercurial and Subversion.
+VCS Gutter Modern is a plugin for Sublime Text 2 and 3 that displays an icon in the gutter area indicating whether a line has been inserted, modified or deleted relative to the version of the file in the local source
+code repository. VCS Gutter supports Fossil, Git, Mercurial and Subversion.
 
-VCS Gutter is a "friendly fork" that builds on the original work by
-[jisaacks](https://github.com/jisaacks) on [GitGutter](https://github.com/jisaacks/GitGutter).
+Note: this is a fork of the unmaintained version of VcsGutter from https://github.com/bradsokol/VcsGutter / It adds support for Fossil, and any contribution is welcome.
+
+VCS Gutter was originally a "friendly fork" that builds on the original work by [jisaacks](https://github.com/jisaacks) on [GitGutter](https://github.com/jisaacks/GitGutter).
 
 ### Screenshot:
 
@@ -20,20 +21,20 @@ Or you can clone this repo into your *Sublime Text 2/Packages*
 *Mac OS X*
 ```shell
 cd ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/
-git clone git://github.com/bradsokol/VcsGutter.git "VCS Gutter"
+git clone https://github.com/bohwaz/VcsGutter.git "VCS Gutter"
 ```
 
 *Ubuntu*
 ```shell
 cd ~/.config/sublime-text-2/Packages
-git clone git://github.com/bradsokol/VcsGutter.git "VCS Gutter"
+git clone https://github.com/bohwaz/VcsGutter.git "VCS Gutter"
 ```
 
 *Windows*
 
 ```shell
 cd %USERPROFILE%\AppData\Roaming\Sublime Text 2\Packages
-git clone git://github.com/bradsokol/VcsGutter.git "VCS Gutter"
+git clone https://github.com/bohwaz/VcsGutter.git "VCS Gutter"
 ```
 
 VcsGutter assumes that the `git`, `hg`, `svn`, `fossil` and `diff` commands are availible on the command line. The installers for these tools may not add the directory containing the executables to the PATH environment variable. If not, you must add the appropriate directory to your PATH variable.
